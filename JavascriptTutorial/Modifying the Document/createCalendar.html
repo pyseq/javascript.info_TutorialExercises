@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+
+    td,
+    th {
+      border: 1px solid black;
+      padding: 3px;
+      text-align: center;
+    }
+
+    th {
+      font-weight: bold;
+      background-color: #E6E6E6;
+    }
+  </style>
+</head>
+<body>
+
+
+  <div></div>
+  <script>
+
+    function createCalendar(elem, year, month) {
+      // My solution (no imoprovements based on the provided solution);
+      const days = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
+      let numberOfDays = new Date(year, month, 0).getDate();
+      let firstDay = new Date(year, month - 1, 1).getDay();
+      firstDay = (firstDay - 1 % 7);
+      days[6 + numberOfDays + firstDay] = undefined;
+      let emptyClosingCells = (7 - ((numberOfDays + firstDay) % 7)) % 7;
+      let table = document.createElement('table');
+      let tbody = document.createElement('tbody');
+      table.append(tbody)
+      let tr;
+      for (let i = 0; i < days.length; i++) {
+        let j = i;
+        if (j % 7 === 0) {
+          j = 0;
+          tr = document.createElement('tr');
+          tbody.append(tr);
+        }
+        let td = document.createElement('td')
+        if (i < 7) {
+          td.innerHTML = `<b>${days[i]}</b>`;
+        } else if (i < 7 + firstDay) {
+          td.textContent = '';
+        } else {
+          td.textContent = i - 6 - firstDay;
+        }
+        tr.append(td);
+      }
+
+      for (let i = 0; i < emptyClosingCells; i++) {
+        td = document.createElement('td')
+        tr.append(td)
+      }
+
+      elem.append(table)
+    }
+
+    let div = document.querySelector('div');
+    createCalendar(div, 2012, 9)
+  </script>
+</body>
+
+</html>

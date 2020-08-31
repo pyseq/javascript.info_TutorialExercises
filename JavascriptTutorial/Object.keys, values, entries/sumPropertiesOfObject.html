@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<script>
+
+  let salaries = {
+  "John": 100,
+  "Pete": 300,
+  "Mary": 250
+  };
+
+  function sumSalaries(salaries) {
+    let salarySum = 0;
+    for (let salary of Object.values(salaries)) {
+      salarySum += salary;
+    }
+    console.log(salarySum);
+    return salarySum;
+  }
+
+  sumSalaries(salaries);
+
+</script>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<script>
+function formatDate(date) {
+  let rightNow = new Date();
+  let diff = rightNow - date;
+  if (diff < 1000) {
+    return "right now"
+  } else if (diff < 60000){
+    return `${Math.round( diff / 1000)} sec. ago`
+  } else if (diff < 360000) {
+    return `${Math.round( diff / 60000)} min. ago`
+  } else {
+    let day = ('0' + date.getDate()).slice(-2);
+    let month = ('0' + (date.getMonth() + 1)).slice(-2)
+    let twoDigitYear = date.getFullYear().toString().slice(-2);
+    let hours = ('0' + date.getHours()).slice(-2)
+    let minutes = ('0' + date.getMinutes()).slice(-2);
+    return `${day}.${month}.${twoDigitYear} ${hours}:${minutes}`
+  }
+}
+
+// Most of the code is similar to the answer. The formatting of
+// the last part, however, is better:
+/* let d = date;
+  d = [
+    '0' + d.getDate(),
+    '0' + (d.getMonth() + 1),
+    '' + d.getFullYear(),
+    '0' + d.getHours(),
+    '0' + d.getMinutes()
+  ].map(component => component.slice(-2)); // take last 2 digits of every component
+
+  // join the components into date
+  return d.slice(0, 3).join('.') + ' ' + d.slice(3).join(':');
+}
+
+/*
+
+</script>

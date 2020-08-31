@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<script>
+  function fib(n) {
+    let fibNum1 = 1;
+    let fibNum2 = 1;
+    //if statement not needed, as indicated by solution
+    if (n === 1 || n === 2) {
+      return 1;
+    }
+
+    for (let i = 3; i <= n; i++) {
+      // This line looks nicer than the solution :) :
+      // let c = a + b;
+      // a = b;
+      // b = c;
+      [fibNum1, fibNum2] = [fibNum1 + fibNum2, fibNum1];
+    }
+
+    return fibNum1;
+  }
+
+  console.log(fib(77));
+</script>

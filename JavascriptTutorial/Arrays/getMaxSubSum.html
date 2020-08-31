@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<script>
+function getMaxSubSum(arr) {
+  let posEnd = arr.length;
+
+  // Removes all negative numbers from the end of the array—they are disregarded in the
+  // calculation. If all numbers are negative, returns 0.
+  while (arr[posEnd - 1] <= 0 && posEnd > -1) {
+    posEnd -= 1;
+  }
+
+  if (posEnd == 0) {
+    return 0
+  }
+
+  return findMaxSubSum(arr, posEnd);
+}
+
+function findMaxSubSum(array, finalPosition) {
+  //Calls the functions that find the max subarray sum.
+  let firstIndex = firstPositiveInteger(array);
+  return contiguousSumLoop(array, firstIndex, finalPosition);
+}
+
+function firstPositiveInteger(array) {
+  // Finds the first positive number in the array (beginning from position 0), returns the
+  // index of that number
+  let index = 0;
+  while (array[index] <= 0) {
+    index += 1;
+  }
+  return index;
+}
+
+function contiguousSumLoop(array, index, finalPosition) {
+
+  // Sets the necessary variables
+  let temporaryPositiveSum = 0;
+  let temporaryNegativeSum = 0;
+  let greatestSum = 0;
+  let lastPositiveGroup = 0;
+  let difference;
+
+
+  for (let i = index; i < finalPosition; i++) {
+    //This if has to be at the start (array can end with positive number, and
+    // the posiitve number is required for "if (temporaryPositiveSum > lastPositiveGroup)")
+
+    if (array[i] >= 0) {
+      // Values here are either part of the positive block (positive numbers), or do not change
+      // the value (0).
+      temporaryPositiveSum += array[i];
+    }
+
+    if (array[i] < 0 || i == finalPosition - 1) {
+      // Reaching a positive value after a group of negatives i.e. + --- '++' - (+ and -
+      // are positives and negatives, respectively). Code progresses in blocks: After the
+      // first positive block, each step consists of a negative and positive block of values.
+      if (temporaryPositiveSum > lastPositiveGroup) {
+
+        //The new positive group: The added positive numbers after a negative group: see above ^^
+        let newPositiveGroup = temporaryPositiveSum - lastPositiveGroup;
+
+        difference = newPositiveGroup + temporaryNegativeSum;
+
+        // The sums of both positive groups have to be greater than the absolute value of the
+        // negative sum
+        if ((lastPositiveGroup + temporaryNegativeSum) >=0 &&
+        (newPositiveGroup + temporaryNegativeSum >= 0)) {
+          // The last positive group 'expands' to encompass the negative and positive group,
+          // increasing by their difference.
+          lastPositiveGroup += difference;
+          temporaryPositiveSum = lastPositiveGroup;
+          if (i == finalPosition - 1) {
+            // For the last value of array, set greatestSum to the lastPositiveGroup
+            greatestSum = lastPositiveGroup;
+          }
+        } else if (lastPositiveGroup > greatestSum){
+          // Difference < 0, so the max is set, and reset the sum begins again from the
+          // newPositiveGroup
+          greatestSum = lastPositiveGroup;
+          lastPositiveGroup = newPositiveGroup;
+          temporaryPositiveSum = newPositiveGroup;
+
+        }
+        // Resets the negative group value for the next 'block' of negative values
+        temporaryNegativeSum = 0;
+      }
+
+      if (i == finalPosition - 1) {
+        // returns the greatestSum
+        return greatestSum;
+      }
+
+      //Increases the negative sum. Any value that reaches here is part of a negative block.
+      temporaryNegativeSum += array[i];
+    }
+  }
+}
+
+</script>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<script>
+  function getSecondsToday() {
+    let rightNow = new Date();
+    let today = new Date(rightNow.getFullYear(), rightNow.getMonth(),
+    rightNow.getDate());
+    console.log(Math.round((rightNow - today) / 1000));
+    //Forgot to add Math.round()
+    return Math.round((rightNow - today) / 1000);
+  }
+
+  getSecondsToday();
+  
+</script>

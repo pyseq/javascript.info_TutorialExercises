@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+
+<body>
+  <table>
+  <thead>
+    <tr>
+      <th>Name</th><th>Surname</th><th>Age</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>John</td><td>Smith</td><td>10</td>
+    </tr>
+    <tr>
+      <td>Pete</td><td>Brown</td><td>15</td>
+    </tr>
+    <tr>
+      <td>Ann</td><td>Lee</td><td>5</td>
+    </tr>
+    <tr>
+      <td>...</td><td>...</td><td>...</td>
+    </tr>
+  </tbody>
+  </table>
+  <script>
+    // My solution works, but the provided solution is much cleaner:
+    /*
+    let sortedRows = Array.from(table.tBodies[0].rows)
+    .sort((rowA, rowB) => rowA.cells[0].innerHTML.localeCompare(rowB.cells[0].innerHTML));
+
+    table.tBodies[0].append(...sortedRows);
+    */
+    // I was thinking along the same lines, but couldn't come up with as good a
+    // solution.
+
+    function sortRowsByName() {
+      let trs = document.querySelectorAll('tbody > tr');
+      trsArray = Array.from(trs);
+
+      trsArray.sort(function (a, b) {
+        if (a.firstElementChild.textContent > b.firstElementChild.textContent) {
+          return 1;
+        }
+        return -1;
+      });
+
+      let tbody = document.querySelector('tbody');
+      tbody.append(...trsArray);
+    }
+
+    sortRowsByName();
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<script>
+
+// Note about provided solution: My solution allows one 'observe'
+// handler in the function. Calling .observe(handler) again overwrites the
+// previous value. The provided solution stores each handler in an array
+// assigned to a symbol. Each handler is then called whenever the set() a
+// property changes.
+ 
+function makeObservable(target) {
+  target.observe = function(handler) {
+    target.handle = handler;
+  }
+
+  return new Proxy(target, {
+    set (target, prop, value, receiver) {
+      // The success part of this solution is from the provided solution.
+      // My code was the following:
+      // target[prop] = value;
+      // target.handle(prop, value);
+      // return true;
+      let success = Reflect.set(...arguments);  // forward the operation to object
+      if (success) {
+        target.handle(prop, value);
+      }
+      return success;
+    }
+  })
+}
+
+let user = {};
+user = makeObservable(user);
+
+user.observe((key, value) => {
+  console.log(`SET ${key}=${value}`);
+});
+
+user.name = "John"; // alerts: SET name=John
+
+</script>

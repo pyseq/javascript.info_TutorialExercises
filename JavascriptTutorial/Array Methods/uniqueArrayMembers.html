@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<script>
+  function unique(arr) {
+    return arr.reduce(function(names, name) {
+      if (names.includes(name)) {
+        return names;
+      } else {
+        names.push(name);
+        return names;
+      }
+    }, [])
+  }
+
+  let strings = ["Hare", "Krishna", "Hare", "Krishna",
+  "Krishna", "Krishna", "Hare", "Hare", ":-O"
+  ];
+
+  console.log(unique(strings)); // Hare, Krishna, :-O
+</script>

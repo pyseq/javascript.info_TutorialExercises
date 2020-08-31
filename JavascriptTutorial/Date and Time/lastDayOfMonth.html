@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<script>
+  function getLastDayOfMonth(year, month) {
+    let date = new Date(year, month);
+    date.setDate(date.getDate() + 31);
+    return 32 - date.getDate();
+  }
+
+  // Again, provided solution is simpler. I was thinking along similar lines
+  // —adding 1 to month and then subtracting 1 from date.getDate()—but failed
+  // to realize that I could simply replace day in new Date(year, month, day)
+  // with 0. Note: new Date(year, month, day ...) arguments can be negative
+  // , due to auto-adjustment:
+
+  /* function getLastDayOfMonth(year, month) {
+      let date = new Date(year, month + 1, 0);
+      return date.getDate();
+    }
+  */
+
+</script>

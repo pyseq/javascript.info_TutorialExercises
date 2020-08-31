@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<script>
+
+function Calculator() {
+
+  this.methods = {
+    "+": (a, b) => a + b,
+    "-": (a, b) => a - b,
+  };
+
+  this.calculate = function(str) {
+
+    let strArray = str.split(' ');
+    let operand = strArray[1];
+    let a = +strArray[0];
+    let b = +strArray[2];
+
+    // My code (the for statement): The solution provided by the
+    // tutorial (the return statement below) is better (). I did not
+    // attempt the if statement before checking the solution, but included
+    // the solution code nevertheless.
+    // The rest of the code is my own.
+    // for (let key in this.methods) {
+    //   if (key == operand) {
+    //     console.log(this.methods[key](a, b));
+    //     return this.methods[key](a, b)
+    //   } else {
+    //     continue;
+    //   }
+    // }
+
+    if (!this.methods[op] || isNaN(a) || isNaN(b)) {
+      return NaN;
+    }
+
+    return this.methods[operand](a, b);
+
+  };
+
+  this.addMethod = function(name, func) {
+    this.methods[name] = func;
+  }
+}
+
+
+let calc = new Calculator();
+
+calc.addMethod("*", (a, b) => a * b);
+console.log(calc.methods);
+calc.calculate("3 * 5")
+
+</script>

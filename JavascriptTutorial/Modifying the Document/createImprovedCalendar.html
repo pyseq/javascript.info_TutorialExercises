@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <style>
+    table {
+      border-collapse: collapse;
+    }
+
+    td,
+    th {
+      border: 1px solid black;
+      padding: 3px;
+      text-align: center;
+    }
+
+    th {
+      font-weight: bold;
+      background-color: #E6E6E6;
+    }
+  </style>
+</head>
+<body>
+
+
+  <div id="calendar"></div>
+  <script>
+
+    //********************************************************
+    //Improved version of createCalendar.html
+    //********************************************************
+
+    // The 'table string method' is better than creating elements during each
+    // iteration of the for loop (presumably, using methods to create / append
+    // a new element is more expensive than string concatenation).
+    // This is also why the provided solution might be slower than this one
+    // (not yet tested): The repeated calls to d.set(date), d.getDay(), and
+    // d.getDate presumably take longer than looping through an array and
+    // using if statements
+    function createCalendar(elem, year, month) {
+      // Better to make the table header directly.
+      let table = '<table><tr><th>MO</th><th>TU</th><th>WE</th><th>TH</th><th>FR</th><th>SA</th><th>SU</th></tr><tr>'
+      // numberOfDays in month
+      let numberOfDays = new Date(year, month, 0).getDate();
+      // Day name: frfom Monday to Sunday
+      let firstDay = new Date(year, month - 1, 1).getDay();
+      //Shifting every 'day' to the left, so that Sunday is the
+      // final day of the week on the calendar.
+      firstDay = (firstDay % 7) ? firstDay - 1 : 6
+
+      // The empty cells at the start. firstDay number of empty cells created.
+      let i = 0;
+      while (i < firstDay) {
+        table += '<td></td>';
+        i++;
+      }
+
+      // The cells with a day number
+      for (let i = firstDay; i < numberOfDays + firstDay; i++) {
+        let j = i;
+        if (j % 7 === 0) {
+          table += '</tr><tr>';
+        }
+
+        table += '<td>' + (i + 1 - firstDay) + '</td>';
+      }
+
+        //The empty cells at the end, if required.
+      let monthLength = firstDay + numberOfDays;
+      if (monthLength % 7) {
+        let emptyClosingCells = 7 - monthLength % 7;
+        for (let i = 0; i < emptyClosingCells; i++) {
+          table += '<td></td>';
+        }
+      }
+
+      table += '</tr></table>';
+
+      elem.innerHTML = table;
+    }
+
+    createCalendar(calendar, 2005, 2)
+  </script>
+</body>
+
+</html>

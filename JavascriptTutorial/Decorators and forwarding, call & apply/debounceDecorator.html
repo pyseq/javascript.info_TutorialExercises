@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<script>
+
+  function debounce(f, ms) {
+    // The provided solution used a more descriptive variable name: 'timeout'
+    let timerId;
+    return function() {
+      // Cancels previous call, if another call is made before ms passes\
+      clearTimeout(timerId)
+      timerId = setTimeout(() => f.apply(this, arguments), ms);
+    }
+  }
+
+  let f = debounce(console.log, 2000);
+
+  f("a");
+  setTimeout( () => f("b"), 1000);
+  setTimeout( () => f("c"), 1500);
+</script>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<script>
+
+function delay(f, ms) {
+  return function() {
+    // From the solution: "Please note how an arrow function is used here.
+    // As we know, arrow functions do not have own this and arguments,
+    // so f.apply(this, arguments) takes this and arguments from the wrapper.
+    // Solved by myself, however.
+    return setTimeout(() => f.call(this, ...arguments), ms);
+    // Solution uses .apply instead of call, which is, according to the tutorial,
+    // better optimized by most Javascript engines. So the provided solution is
+    // better.
+  }
+}
+
+  function f(x) {
+    console.log(x)
+  }
+
+  // create wrappers
+  let f1000 = delay(f, 1000);
+  let f1500 = delay(f, 1500);
+
+  f1000("test"); // shows "test" after 1000ms
+  f1500("test");
+</script>

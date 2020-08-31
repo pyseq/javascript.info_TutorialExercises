@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<script>
+  function sum(a) {
+    let sum = 0;
+    sum += a;
+    return function add(b) {
+      sum += b;
+      return sum;
+    }
+
+  }
+
+  console.log(sum(1)(2));
+
+  // Provided solution better, but the idea behind my solution is the same. As the
+  // solution author explains, the first function 'sum' must return a function
+  // for the second parentheses to be valid.
+  //   function sum(a) {
+  //
+  //   return function(b) {
+  //     return a + b; // takes "a" from the outer lexical environment
+  //   };
+  //
+  // }
+
+</script>
